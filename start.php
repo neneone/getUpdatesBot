@@ -2,7 +2,7 @@
 
 if(isset($argv[1]) and $argv[1] == 'background') {
   shell_exec('screen -d -m php start.php');
-  echo PHP_EOL . 'getUpdatesBot started in background.' . PHP_EOL;
+  echo PHP_EOL . 'getUpdatesBot avviato in background.' . PHP_EOL;
   exit;
 }
 
@@ -10,10 +10,14 @@ error_reporting(E_ERROR);
 
 echo PHP_EOL . 'getUpdatesBot is starting...' . PHP_EOL;
 
-$Token      = '12345678:abcdefghij'; #Insert here your API key
+$Token      = '523209487:AAG9dE_FPnmKu9PIYWtElVtszJx04VP4vZ4'; #Insert here your API key
 $API  = 'https://api.telegram.org/bot' . $Token . '/';
 
-echo PHP_EOL . '_commands.php and _functions.php loaded.' . PHP_EOL;
+if(file_exists('_commands.php') and file_exists('_functions.php')) {
+  echo PHP_EOL . '_commands.php and _functions.php loaded.' . PHP_EOL;
+} else {
+  exit (PHP_EOL . 'Error while trying to include _functions and _commands.php' . PHP_EOL);
+}
 
 $Offset = 0;
 
