@@ -47,7 +47,7 @@ function curlRequest($type, $url, $args = null) {
 while(true) {
   $Updates = json_decode(curlRequest('POST', $API . 'getUpdates?offset=' . $Offset), true);
   if($Updates['ok'] == false) {
-    exit (PHP_EOL . 'Telegram error: ' . $Updates['error']);
+    exit (PHP_EOL . 'Telegram error: ' . $Updates['description'] . PHP_EOL);
   }
   try {
     require_once '_functions.php';
