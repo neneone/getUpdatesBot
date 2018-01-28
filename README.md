@@ -54,6 +54,12 @@ screen -r
 ```
 e successivamente CTRL + C.
 
+## Features
+
+Features del bot:
+- Il bot recupera tutti gli Updates persi quando torna online nel caso in cui fosse andato offline.
+- Può funzionare anche in background per essere sempre online.
+
 ## Riadattamenti
 
 Inizio dicendo che \_functions.php e \_variables.php sono state prese e riadattate da OpusBot.
