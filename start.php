@@ -10,7 +10,7 @@ error_reporting(E_ERROR);
 
 echo PHP_EOL . 'getUpdatesBot is starting...' . PHP_EOL;
 
-$Token      = '523209487:AAG9dE_FPnmKu9PIYWtElVtszJx04VP4vZ4'; #Insert here your API key
+$Token      = '12345678:abcdefghij'; #Insert here your API key
 $API  = 'https://api.telegram.org/bot' . $Token . '/';
 
 if(file_exists('_commands.php') and file_exists('_functions.php')) {
