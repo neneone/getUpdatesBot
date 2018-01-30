@@ -54,12 +54,17 @@ screen -r
 ```
 e successivamente CTRL + C.
 
+## Aggiornare il bot
+
+Per aggiornare il bot è sufficiente digitare
+```
+php start.php update
+```
+e attendere qualche secondo.
+
 ## Features
 
 Features del bot:
 - Il bot recupera tutti gli Updates persi quando torna online nel caso in cui fosse andato offline.
 - Può funzionare anche in background per essere sempre online.
-
-## Riadattamenti
-
-Inizio dicendo che \_functions.php e \_variables.php sono state prese e riadattate da OpusBot.
+- Il bot si può aggiornare direttamente dal Terminale.
