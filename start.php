@@ -1,13 +1,10 @@
 <?php
-
 error_reporting(E_ERROR);
-
 if(isset($argv[1]) and $argv[1] == 'background') {
   shell_exec('screen -d -m php start.php');
   echo PHP_EOL . 'getUpdatesBot avviato in background.' . PHP_EOL;
   exit;
 }
-
 if(isset($argv[1]) and $argv[1] == 'update') {
   echo PHP_EOL . 'Starting updating getUpdatesBot...' . PHP_EOL;
   try {
@@ -25,27 +22,23 @@ if(isset($argv[1]) and $argv[1] == 'update') {
   exit;
 }
 
+if(isset($argv[1]) and $argv[1] !== 'background' and $argv[1] !== 'update') {
+  exit (PHP_EOL . 'Unknown option ' . $argv[1] . PHP_EOL);
+}
+
 echo PHP_EOL . 'getUpdatesBot is starting...' . PHP_EOL;
-
-$Token      = '523209487:AAEtYvbeFiGJ2g-2I76c0c1y6EC5NiKW_YQ'; #Insert here your API key
+require 'api_token.php';
 $API  = 'https://api.telegram.org/bot' . $Token . '/';
-
 if(file_exists('_commands.php') and file_exists('_functions.php')) {
   echo PHP_EOL . '_commands.php and _functions.php loaded.' . PHP_EOL;
 } else {
   exit (PHP_EOL . 'Error while trying to include _functions and _commands.php' . PHP_EOL);
 }
-
 $Offset = 0;
-
 echo PHP_EOL . 'Starting receiving updates...' . PHP_EOL;
-
 function curlRequest($type, $url, $args = null) {
-
   $type = strtoupper($type);
-
   $ch = curl_init();
-
   curl_setopt($ch, CURLOPT_URL, $url);
   if($type == 'GET') {
     $url = $url . '?' . http_build_query($args);
@@ -60,7 +53,6 @@ function curlRequest($type, $url, $args = null) {
   curl_close($ch);
   return $exec;
 }
-
 while(true) {
   $Updates = json_decode(curlRequest('POST', $API . 'getUpdates?offset=' . $Offset), true);
   if($Updates['ok'] == false) {
@@ -79,5 +71,4 @@ while(true) {
   }
   $Offset = $Updates['result'][count($Updates['result']) - 1]['update_id'] + 1;
 }
-
  ?>
