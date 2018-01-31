@@ -7,7 +7,7 @@ A simple way to create a Telegram Bot using getUpdates.
 
 ### Requisiti
 
-Per poter utilizzare getUpdatesBot è necessario un VPS con accesso SSH, con installato PHP 7.0 e le sue estensioni e screen.
+Per poter utilizzare getUpdatesBot è necessario un VPS con accesso SSH, con installato PHP 7.2 e le sue estensioni e screen.
 Per installare screen è sufficiente utilizzare:
 ```
 sudo apt-get update
