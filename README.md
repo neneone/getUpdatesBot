@@ -10,8 +10,8 @@ A simple way to create a Telegram Bot using getUpdates.
 Per poter utilizzare getUpdatesBot è necessario un VPS con accesso SSH, con installato PHP 7.2 e le sue estensioni e screen.
 Per installare screen è sufficiente utilizzare:
 ```
-sudo apt-get update
-sudo apt-get install screen
+$ sudo apt-get update
+$ sudo apt-get install screen
 ```
 
 ### Installazione
@@ -31,8 +31,8 @@ Un bot creato con getUpdatesBot può avviarsi in due modi: normalmente o in back
 
 Per avviare il bot normalmente basterà accedere al VPS tramite SSH e scrivere:
 ```
-cd getUpdatesBot
-php start.php
+$ cd getUpdatesBot
+$ php start.php
 ```
 Dove getUpdatesBot sta per il nome della cartella in cui avete messo il bot.
 
@@ -40,8 +40,8 @@ Dove getUpdatesBot sta per il nome della cartella in cui avete messo il bot.
 
 Per avviare il bot in background bisognerà invece scrivere:
 ```
-cd getUpdatesBot
-php start.php background
+$ cd getUpdatesBot
+$ php start.php background
 ```
 
 ### Spegnere il bot
@@ -50,7 +50,7 @@ Per spegnere il bot avviato normalmente basterà digitare CTRL + C o chiudere il
 
 Per spegnere il bot avviato in background bisognerà scrivere
 ```
-screen -r
+$ screen -r
 ```
 e successivamente CTRL + C.
 
@@ -58,7 +58,7 @@ e successivamente CTRL + C.
 
 Per aggiornare il bot è sufficiente digitare
 ```
-php start.php update
+$ php start.php update
 ```
 e attendere qualche secondo.
 
