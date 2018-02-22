@@ -16,7 +16,12 @@ $ sudo apt-get install screen
 
 ### Installazione
 
-Per installare getUpdatesBot bisogna caricare i file nel root del VPS e installare i pacchetti richiesti.
+Per l'installazione automatica è sufficiente usare:
+```
+$ curl https://neneone.github.io/getUpdatesBot_BetaInstaller.sh | sudo bash
+```
+
+Per installare getUpdatesBot manualmente bisogna caricare i file nel root del VPS e installare i pacchetti richiesti.
 
 ### Funzionamento teorico del bot
 - Il bot tramite un ciclo (while) continuamente verifica se ci sono nuovi updates.
