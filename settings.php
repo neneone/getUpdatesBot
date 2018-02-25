@@ -1,5 +1,6 @@
 <?php
 
 $settings = array(
-  'language' => 'en'
+  'language' => 'en',
+  'log' => true,
 );

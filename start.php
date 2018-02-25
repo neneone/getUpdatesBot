@@ -21,6 +21,12 @@
 
 error_reporting(E_ERROR);
 
+if (file_exists('settings.php') == 0 or ($argv[1] != 'update' && empty(file_get_contents('settings.php')))) {
+    touch('settings.php');
+    echo 'An update is required, please run php start.php update' . PHP_EOL;
+    exit();
+}
+
 require 'settings.php';
 
 if (file_exists('trad_' . $settings['language'] . '.json')) {
@@ -46,21 +52,26 @@ $trad = json_decode($trad, true);
 
 echo $trad['trad_loaded'] . PHP_EOL;
 
-if (isset($argv[1]) and $argv[1] == 'background') {
+if (isset($argv[1]) && $argv[1] == 'background') {
     shell_exec('screen -d -m php start.php');
     echo $trad['background'] . PHP_EOL;
     exit;
 }
-if (isset($argv[1]) and $argv[1] == 'update') {
+if (isset($argv[1]) && $argv[1] == 'update') {
     echo $trad['update'] . PHP_EOL;
     if (file_exists('.git')) {
         try {
             $_commands = file_get_contents('_commands.php');
             $token = file_get_contents('api_token.php');
+            $settings = file_get_contents('settings.php');
+            @unlink('settings.php');
             shell_exec('git reset --hard HEAD');
             shell_exec('git pull');
             file_put_contents('_commands.php', $_commands);
             file_put_contents('api_token.php', $token);
+            if (!empty($settings)) {
+                file_put_contents('settings.php', $settings);
+            }
             unlink('_config.yml');
             unlink('README.md');
         } catch (\Exception | \Error $e) {
@@ -78,14 +89,14 @@ if (isset($argv[1]) and $argv[1] == 'update') {
     exit;
 }
 
-if (isset($argv[1]) and $argv[1] !== 'background' and $argv[1] !== 'update') {
+if (isset($argv[1]) && $argv[1] !== 'background' && $argv[1] !== 'update') {
     exit($trad['unknown_option'] . $argv[1] . PHP_EOL);
 }
 
 echo $trad['starting'] . PHP_EOL;
 require 'api_token.php';
 $API  = 'https://api.telegram.org/bot' . $Token . '/';
-if (file_exists('_commands.php') and file_exists('_functions.php')) {
+if (file_exists('_commands.php') && file_exists('_functions.php')) {
     echo $trad['loaded'] . PHP_EOL;
 } else {
     exit('Error while trying to include _functions and _commands.php' . PHP_EOL);
@@ -128,6 +139,10 @@ while (true) {
         }
         require '_variables.php';
         require '_commands.php';
+        if ($settings['log'] == 1 && $chatID > 0 && $msg) {
+            $msg = strip_tags($msg);
+            echo $nome . ' [' . $userID . '] -> ' . $msg . $msg[count(str_split($msg)) - 1] .  PHP_EOL;
+        }
     }
     $Offset = $Updates['result'][count($Updates['result']) - 1]['update_id'] + 1;
 }
