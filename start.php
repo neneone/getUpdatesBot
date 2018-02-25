@@ -22,21 +22,30 @@
 error_reporting(E_ERROR);
 if(isset($argv[1]) and $argv[1] == 'background') {
   shell_exec('screen -d -m php start.php');
-  echo 'getUpdatesBot avviato in background.' . PHP_EOL;
+  echo 'getUpdatesBot started in background.' . PHP_EOL;
   exit;
 }
 if(isset($argv[1]) and $argv[1] == 'update') {
   echo 'Starting updating getUpdatesBot...' . PHP_EOL;
-  try {
-    $_commands = file_get_contents('_commands.php');
-    $token = file_get_contents('api_token.php');
-    shell_exec('git pull');
-    file_put_contents('_commands.php', $_commands);
-    file_put_contents('api_token.php', $token);
-  } catch (\Exception | \Error $e) {
-    echo 'Error while trying to update getUpdatesBot: ' . $e->getMessage() . ' on line ' . $e->getLine() . PHP_EOL;
-    file_put_contents('error.log', 'Error while trying to update getUpdatesBot: ' . $e->getMessage() . ' on line ' . $e->getLine());
-    exit;
+  if(file_exists('.git')) {
+    try {
+      $_commands = file_get_contents('_commands.php');
+      $token = file_get_contents('api_token.php');
+      shell_exec('git pull');
+      file_put_contents('_commands.php', $_commands);
+      file_put_contents('api_token.php', $token);
+      unlink('_config.yml');
+      unlink('README.md');
+    } catch (\Exception | \Error $e) {
+      echo 'Error while trying to update getUpdatesBot: ' . $e->getMessage() . ' on line ' . $e->getLine() . PHP_EOL;
+      file_put_contents('error.log', 'Error while trying to update getUpdatesBot: ' . $e->getMessage() . ' on line ' . $e->getLine());
+      exit;
+    }
+  } else {
+    file_put_contents('_functions.php', curlRequest('GET', 'https://raw.githubusercontent.com/Neneone/getUpdatesBot/master/_functions.php'));
+    file_put_contents('_variables.php', curlRequest('GET', 'https://raw.githubusercontent.com/Neneone/getUpdatesBot/master/_variables.php'));
+    file_put_contents('LICENSE', curlRequest('GET', 'https://raw.githubusercontent.com/Neneone/getUpdatesBot/master/LICENSE'));
+    file_put_contents('start.php', curlRequest('GET', 'https://raw.githubusercontent.com/Neneone/getUpdatesBot/master/start.php'));
   }
   echo 'getUpdatesBot updated!' . PHP_EOL;
   exit;
