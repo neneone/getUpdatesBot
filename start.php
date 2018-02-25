@@ -20,13 +20,36 @@
 */
 
 error_reporting(E_ERROR);
+
+require 'settings.php';
+
+if(file_exists('trad_' . $settings['language'] . '.json')) {
+  $trad = file_get_contents('trad_' . $settings['language'] . '.json');
+} elseif (file_exists('trad_en.json')) {
+  $trad = file_get_contents('trad_en.json');
+} elseif (file_exists('trad_it.json')) {
+  $trad = file_get_contents('trad_it.json');
+} else {
+  if($settings['language'] == 'it') {
+    file_put_contents('trad_it.json', curlRequest('GET', 'https://neneone.github.io/getUpdatesBot.trad_it.json'));
+    $trad = file_get_contents('trad_it.json');
+  } else {
+    file_put_contents('trad_en.json', curlRequest('GET', 'https://neneone.github.io/getUpdatesBot.trad_en.json'));
+    $trad = file_get_contents('trad_en.json');
+  }
+}
+
+$trad = json_decode($trad, true);
+
+echo $trad['trad_loaded'] . PHP_EOL;
+
 if(isset($argv[1]) and $argv[1] == 'background') {
   shell_exec('screen -d -m php start.php');
-  echo 'getUpdatesBot started in background.' . PHP_EOL;
+  echo $trad['background'] . PHP_EOL;
   exit;
 }
 if(isset($argv[1]) and $argv[1] == 'update') {
-  echo 'Starting updating getUpdatesBot...' . PHP_EOL;
+  echo $trad['update'] . PHP_EOL;
   if(file_exists('.git')) {
     try {
       $_commands = file_get_contents('_commands.php');
@@ -48,24 +71,24 @@ if(isset($argv[1]) and $argv[1] == 'update') {
     file_put_contents('LICENSE', curlRequest('GET', 'https://raw.githubusercontent.com/Neneone/getUpdatesBot/master/LICENSE'));
     file_put_contents('start.php', curlRequest('GET', 'https://raw.githubusercontent.com/Neneone/getUpdatesBot/master/start.php'));
   }
-  echo 'getUpdatesBot updated!' . PHP_EOL;
+  echo $trad['updated'] . PHP_EOL;
   exit;
 }
 
 if(isset($argv[1]) and $argv[1] !== 'background' and $argv[1] !== 'update') {
-  exit ('Unknown option ' . $argv[1] . PHP_EOL);
+  exit ($trad['unknown_option'] . $argv[1] . PHP_EOL);
 }
 
-echo 'getUpdatesBot is starting...' . PHP_EOL;
+echo $trad['starting'] . PHP_EOL;
 require 'api_token.php';
 $API  = 'https://api.telegram.org/bot' . $Token . '/';
 if(file_exists('_commands.php') and file_exists('_functions.php')) {
-  echo '_commands.php and _functions.php loaded.' . PHP_EOL;
+  echo $trad['loaded'] . PHP_EOL;
 } else {
   exit ('Error while trying to include _functions and _commands.php' . PHP_EOL);
 }
 $Offset = 0;
-echo 'Starting receiving updates...' . PHP_EOL;
+echo $trad['update_fetching'] . PHP_EOL;
 function curlRequest($type, $url, $args = null) {
   $type = strtoupper($type);
   $ch = curl_init();
