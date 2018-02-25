@@ -25,8 +25,8 @@ Per installare getUpdatesBot manualmente bisogna caricare i file nel root del VP
 
 ### Funzionamento teorico del bot
 - Il bot tramite un ciclo (while) continuamente verifica se ci sono nuovi updates.
-- Quando prende un update attiva \_commands.php e aggiorna le variabili di \_variables.php.
-- \_commands.php utilizzando le funzioni di \_functions.php interagisce con le [BotAPI](https://core.telegram.org/bots/api) e fa inviare un messaggio al bot.
+- Quando prende un update attiva `_commands.php` e aggiorna le variabili di `_variables.php`.
+- `_commands.php` utilizzando le funzioni di `_functions.php` interagisce con le [BotAPI](https://core.telegram.org/bots/api) e fa inviare un messaggio al bot.
 
 ## Avvio e spegnimento del bot
 
@@ -67,9 +67,14 @@ $ php start.php update
 ```
 e attendere qualche secondo. Altrimenti andrà fatta manualmente.
 
+## Modificare la lingua
+
+Per modificare la lingua bisogna andare in `settings.php` e modificare il valore "language." Nel caso in cui la lingua non sia stata scaricata e se non è "it" o "en" (due lingue di default), viene utilizzata la lingua inglese. Se la lingua è "it" o "en" e manca il file viene automaticamente scaricata ed utilizzata.
+
 ## Features
 
 Features del bot:
 - Il bot recupera tutti gli Updates persi quando torna online nel caso in cui fosse andato offline.
 - Può funzionare anche in background per essere sempre online.
 - Il bot si può aggiornare direttamente dal Terminale.
+- Lingua impostabile.

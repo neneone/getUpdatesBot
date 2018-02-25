@@ -25,14 +25,17 @@ require 'settings.php';
 
 if(file_exists('trad_' . $settings['language'] . '.json')) {
   $trad = file_get_contents('trad_' . $settings['language'] . '.json');
-} elseif (file_exists('trad_en.json')) {
-  $trad = file_get_contents('trad_en.json');
-} elseif (file_exists('trad_it.json')) {
-  $trad = file_get_contents('trad_it.json');
 } else {
   if($settings['language'] == 'it') {
     file_put_contents('trad_it.json', curlRequest('GET', 'https://neneone.github.io/getUpdatesBot.trad_it.json'));
     $trad = file_get_contents('trad_it.json');
+  } elseif($settings['language'] == 'en') {
+    file_put_contents('trad_en.json', curlRequest('GET', 'https://neneone.github.io/getUpdatesBot.trad_en.json'));
+    $trad = file_get_contents('trad_en.json');
+  } elseif(file_exists('trad_en.json')) {
+    $trad = file_get_contents('trad_en.json');
+  } elseif(file_exists('trad_it.json')) {
+    $trad = file_get_contents('trad_en.json');
   } else {
     file_put_contents('trad_en.json', curlRequest('GET', 'https://neneone.github.io/getUpdatesBot.trad_en.json'));
     $trad = file_get_contents('trad_en.json');
