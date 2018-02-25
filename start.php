@@ -21,6 +21,12 @@
 
 error_reporting(E_ERROR);
 
+if (file_exists('settings.php') == 0 or ($argv[1] != 'update' && empty(file_get_contents('settings.php')))) {
+    touch('settings.php');
+    echo 'An update is required, please run php start.php update' . PHP_EOL;
+    exit();
+}
+
 require 'settings.php';
 
 if (file_exists('trad_' . $settings['language'] . '.json')) {
@@ -57,10 +63,15 @@ if (isset($argv[1]) and $argv[1] == 'update') {
         try {
             $_commands = file_get_contents('_commands.php');
             $token = file_get_contents('api_token.php');
+            $settings = file_get_contents('settings.php');
+            @unlink('settings.php');
             shell_exec('git reset --hard HEAD');
             shell_exec('git pull');
             file_put_contents('_commands.php', $_commands);
             file_put_contents('api_token.php', $token);
+            if (!empty($settings)) {
+                file_put_contents('settings.php', $settings);
+            }
             unlink('_config.yml');
             unlink('README.md');
         } catch (\Exception | \Error $e) {
