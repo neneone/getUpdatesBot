@@ -19,9 +19,10 @@
           along with getUpdatesBot.  If not, see http://www.gnu.org/licenses.
 */
 
-function sendMessage($chat_id, $text) {
-  global $API;
-  return curlRequest('POST', $API . 'sendMessage', ['chat_id' => $chat_id, 'text' => $text]);
+function sendMessage($chat_id, $text)
+{
+    global $API;
+    return curlRequest('POST', $API . 'sendMessage', ['chat_id' => $chat_id, 'text' => $text]);
 }
 
 function sendMessagePlus($chat_id, $text, $parse_mode = 'default', $disable_web_page_preview = 'default', $disable_notification = false, $reply_to_message_id = 'default', $reply_markup = false, $inline = 'default', $resize_keyboard = false)
@@ -44,7 +45,7 @@ function sendMessagePlus($chat_id, $text, $parse_mode = 'default', $disable_web_
         $inline = false;
     }
     if ($disable_web_page_preview == 'default') {
-          $disable_web_page_preview = true;
+        $disable_web_page_preview = true;
     }
     if (!$inline) {
         if ($resize_keyboard == true) {
@@ -127,5 +128,3 @@ function cb_reply($id, $text, $alert = false, $cbmid = false, $ntext = false, $n
         $r = curlRequest('post', $API . 'editMessageText', $args);
     }
 }
-
- ?>

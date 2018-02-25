@@ -3,5 +3,3 @@
 $settings = array(
   'language' => 'en'
 );
-
- ?>

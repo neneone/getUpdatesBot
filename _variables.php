@@ -52,5 +52,3 @@ if ($Update['callback_query']) {
     $cognome  = $Update['callback_query']['from']['last_name'];
     $username = $Update['callback_query']['from']['username'];
 }
-
- ?>

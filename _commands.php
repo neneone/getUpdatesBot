@@ -19,8 +19,6 @@
           along with getUpdatesBot.  If not, see http://www.gnu.org/licenses.
 */
 
-if($msg == '/start') {
-  sendMessagePlus($chatID, 'Bot online.');
+if ($msg == '/start') {
+    sendMessagePlus($chatID, 'Bot online.');
 }
-
- ?>
