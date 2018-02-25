@@ -31,6 +31,7 @@ if(isset($argv[1]) and $argv[1] == 'update') {
     try {
       $_commands = file_get_contents('_commands.php');
       $token = file_get_contents('api_token.php');
+      shell_exec('git reset --hard HEAD');
       shell_exec('git pull');
       file_put_contents('_commands.php', $_commands);
       file_put_contents('api_token.php', $token);
