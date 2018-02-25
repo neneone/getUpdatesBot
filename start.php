@@ -22,7 +22,7 @@
 error_reporting(E_ERROR);
 if(isset($argv[1]) and $argv[1] == 'background') {
   shell_exec('screen -d -m php start.php');
-  echo 'getUpdatesBot avviato in background.' . PHP_EOL;
+  echo 'getUpdatesBot started in background.' . PHP_EOL;
   exit;
 }
 if(isset($argv[1]) and $argv[1] == 'update') {
@@ -34,6 +34,8 @@ if(isset($argv[1]) and $argv[1] == 'update') {
       shell_exec('git pull');
       file_put_contents('_commands.php', $_commands);
       file_put_contents('api_token.php', $token);
+      unlink('_config.yml');
+      unlink('README.md');
     } catch (\Exception | \Error $e) {
       echo 'Error while trying to update getUpdatesBot: ' . $e->getMessage() . ' on line ' . $e->getLine() . PHP_EOL;
       file_put_contents('error.log', 'Error while trying to update getUpdatesBot: ' . $e->getMessage() . ' on line ' . $e->getLine());
