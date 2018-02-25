@@ -61,11 +61,11 @@ e successivamente CTRL + C.
 
 ## Aggiornare il bot
 
-Se il bot è stato installato con l'installazione automatica ([qui](#installazione)), è sufficiente usare
+Per aggiornare il bot è sufficiente usare
 ```
 $ php start.php update
 ```
-e attendere qualche secondo. Altrimenti andrà fatta manualmente.
+e attendere qualche secondo.
 
 ## Modificare la lingua
 
