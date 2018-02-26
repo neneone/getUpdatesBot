@@ -1,7 +1,7 @@
 # getUpdatesBot
 A simple way to create a Telegram Bot using getUpdates.
 
-[![Dona](https://img.shields.io/badge/%F0%9F%92%99-Donate-blue.svg)](https://www.paypal.me/Neneone)
+[![Dona](https://img.shields.io/badge/%F0%9F%92%99-Donate-blue.svg)](https://www.paypal.me/Neneone) [![Download](https://img.shields.io/badge/dynamic/json.svg?label=Download&uri=https%3A%2F%2Fenea.rhosting.network%2FgetUpdatesBot%2FcountDownloads%2F&query=total&colorB=brightgreen)](https://enea.rhosting.network/getUpdatesBot/download)
 
 ## Iniziare
 
