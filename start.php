@@ -23,14 +23,14 @@ error_reporting(E_ERROR);
 
 if (file_exists('settings.php') == 0 or ($argv[1] != 'update' && empty(file_get_contents('settings.php')))) {
     touch('settings.php');
-    echo 'An update is required, please run php start.php update' . PHP_EOL;
+    echo 'An update is required, please run php start.php update'.PHP_EOL;
     exit();
 }
 
 require 'settings.php';
 
-if (file_exists('trad_' . $settings['language'] . '.json')) {
-    $trad = file_get_contents('trad_' . $settings['language'] . '.json');
+if (file_exists('trad_'.$settings['language'].'.json')) {
+    $trad = file_get_contents('trad_'.$settings['language'].'.json');
 } else {
     if ($settings['language'] == 'it') {
         file_put_contents('trad_it.json', curlRequest('GET', 'https://neneone.github.io/getUpdatesBot.trad_it.json'));
@@ -50,15 +50,15 @@ if (file_exists('trad_' . $settings['language'] . '.json')) {
 
 $trad = json_decode($trad, true);
 
-echo $trad['trad_loaded'] . PHP_EOL;
+echo $trad['trad_loaded'].PHP_EOL;
 
 if (isset($argv[1]) && $argv[1] == 'background') {
     shell_exec('screen -d -m php start.php');
-    echo $trad['background'] . PHP_EOL;
+    echo $trad['background'].PHP_EOL;
     exit;
 }
 if (isset($argv[1]) && $argv[1] == 'update') {
-    echo $trad['update'] . PHP_EOL;
+    echo $trad['update'].PHP_EOL;
     if (file_exists('.git')) {
         try {
             $_commands = file_get_contents('_commands.php');
@@ -75,8 +75,8 @@ if (isset($argv[1]) && $argv[1] == 'update') {
             unlink('_config.yml');
             unlink('README.md');
         } catch (\Exception | \Error $e) {
-            echo 'Error while trying to update getUpdatesBot: ' . $e->getMessage() . ' on line ' . $e->getLine() . PHP_EOL;
-            file_put_contents('error.log', 'Error while trying to update getUpdatesBot: ' . $e->getMessage() . ' on line ' . $e->getLine());
+            echo 'Error while trying to update getUpdatesBot: '.$e->getMessage().' on line '.$e->getLine().PHP_EOL;
+            file_put_contents('error.log', 'Error while trying to update getUpdatesBot: '.$e->getMessage().' on line '.$e->getLine());
             exit;
         }
     } else {
@@ -85,31 +85,31 @@ if (isset($argv[1]) && $argv[1] == 'update') {
         file_put_contents('LICENSE', curlRequest('GET', 'https://raw.githubusercontent.com/Neneone/getUpdatesBot/master/LICENSE'));
         file_put_contents('start.php', curlRequest('GET', 'https://raw.githubusercontent.com/Neneone/getUpdatesBot/master/start.php'));
     }
-    echo $trad['updated'] . PHP_EOL;
+    echo $trad['updated'].PHP_EOL;
     exit;
 }
 
 if (isset($argv[1]) && $argv[1] !== 'background' && $argv[1] !== 'update') {
-    exit($trad['unknown_option'] . $argv[1] . PHP_EOL);
+    exit($trad['unknown_option'].$argv[1].PHP_EOL);
 }
 
-echo $trad['starting'] . PHP_EOL;
+echo $trad['starting'].PHP_EOL;
 require 'api_token.php';
-$API  = 'https://api.telegram.org/bot' . $Token . '/';
+$API = 'https://api.telegram.org/bot'.$Token.'/';
 if (file_exists('_commands.php') && file_exists('_functions.php')) {
-    echo $trad['loaded'] . PHP_EOL;
+    echo $trad['loaded'].PHP_EOL;
 } else {
-    exit('Error while trying to include _functions and _commands.php' . PHP_EOL);
+    exit('Error while trying to include _functions and _commands.php'.PHP_EOL);
 }
 $Offset = 0;
-echo $trad['update_fetching'] . PHP_EOL;
+echo $trad['update_fetching'].PHP_EOL;
 function curlRequest($type, $url, $args = null)
 {
     $type = strtoupper($type);
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, $url);
     if ($type == 'GET') {
-        $url = $url . '?' . http_build_query($args);
+        $url = $url.'?'.http_build_query($args);
         curl_setopt($ch, CURLOPT_URL, $url);
     }
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -119,18 +119,20 @@ function curlRequest($type, $url, $args = null)
     }
     $exec = curl_exec($ch);
     curl_close($ch);
+
     return $exec;
 }
+
 try {
     require_once '_functions.php';
 } catch (\Error | \Exception $e) {
-    file_put_contents('_error.log', 'Error: ' . $e->getMessage() . ' on line ' . $e->getLine() . ' in ' . $e->getFile());
-    exit('Error in ' . $e->getFile() . ' on line ' . $e->getLine() . ', look in _error.log. The error is ' . $e->getMessage() . PHP_EOL);
+    file_put_contents('_error.log', 'Error: '.$e->getMessage().' on line '.$e->getLine().' in '.$e->getFile());
+    exit('Error in '.$e->getFile().' on line '.$e->getLine().', look in _error.log. The error is '.$e->getMessage().PHP_EOL);
 }
 while (true) {
-    $Updates = json_decode(curlRequest('POST', $API . 'getUpdates?offset=' . $Offset), true);
+    $Updates = json_decode(curlRequest('POST', $API.'getUpdates?offset='.$Offset), true);
     if ($Updates['ok'] == false) {
-        exit('Telegram error: ' . $Updates['description'] . PHP_EOL);
+        exit('Telegram error: '.$Updates['description'].PHP_EOL);
     }
     foreach ($Updates['result'] as $Key => $Value) {
         $Update = $Updates['result'][$Key];
@@ -141,7 +143,7 @@ while (true) {
         require '_commands.php';
         if ($settings['log'] == 1 && $chatID > 0 && $msg) {
             $msg = strip_tags($msg);
-            echo $nome . ' [' . $userID . '] -> ' . $msg . $msg[count(str_split($msg)) - 1] .  PHP_EOL;
+            echo $nome.' ['.$userID.'] -> '.$msg.$msg[count(str_split($msg)) - 1].PHP_EOL;
         }
     }
     $Offset = $Updates['result'][count($Updates['result']) - 1]['update_id'] + 1;

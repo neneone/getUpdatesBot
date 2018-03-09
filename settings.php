@@ -1,6 +1,6 @@
 <?php
 
-$settings = array(
+$settings = [
   'language' => 'en',
-  'log' => true,
-);
+  'log'      => true,
+];

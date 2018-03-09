@@ -22,7 +22,8 @@
 function sendMessage($chat_id, $text)
 {
     global $API;
-    return curlRequest('POST', $API . 'sendMessage', ['chat_id' => $chat_id, 'text' => $text]);
+
+    return curlRequest('POST', $API.'sendMessage', ['chat_id' => $chat_id, 'text' => $text]);
 }
 
 function sendMessagePlus($chat_id, $text, $parse_mode = 'default', $disable_web_page_preview = 'default', $disable_notification = false, $reply_to_message_id = 'default', $reply_markup = false, $inline = 'default', $resize_keyboard = false)
@@ -49,27 +50,27 @@ function sendMessagePlus($chat_id, $text, $parse_mode = 'default', $disable_web_
     }
     if (!$inline) {
         if ($resize_keyboard == true) {
-            $rm = array(
-                'hide_keyboard' => true
-            );
+            $rm = [
+                'hide_keyboard' => true,
+            ];
         } else {
-            $rm = array(
-                'keyboard' => $reply_markup,
-                'resize_keyboard' => true
-            );
+            $rm = [
+                'keyboard'        => $reply_markup,
+                'resize_keyboard' => true,
+            ];
         }
     } else {
-        $rm = array(
-            'inline_keyboard' => $reply_markup
-        );
+        $rm = [
+            'inline_keyboard' => $reply_markup,
+        ];
     }
-    $rm   = json_encode($rm);
-    $args = array(
-        'chat_id' => $chat_id,
-        'text' => $text,
+    $rm = json_encode($rm);
+    $args = [
+        'chat_id'              => $chat_id,
+        'text'                 => $text,
         'disable_notification' => $disable_notification,
-        'parse_mode' => $parse_mode
-    );
+        'parse_mode'           => $parse_mode,
+    ];
     if ($disable_web_page_preview) {
         $args['disable_web_page_preview'] = $disable_web_page_preview;
     }
@@ -80,9 +81,9 @@ function sendMessagePlus($chat_id, $text, $parse_mode = 'default', $disable_web_
         $args['reply_markup'] = $rm;
     }
     if ($text) {
-        $rr   = curlRequest('post', $API . 'sendMessage', $args);
-        $ar   = json_decode($rr, true);
-        $ok   = $ar['ok'];
+        $rr = curlRequest('post', $API.'sendMessage', $args);
+        $ar = json_decode($rr, true);
+        $ok = $ar['ok'];
         $e403 = $ar['error_code'];
         if ($e403 == '403') {
             return false;
@@ -103,28 +104,28 @@ function cb_reply($id, $text, $alert = false, $cbmid = false, $ntext = false, $n
     if ($npm == 'pred') {
         $npm = 'HTML';
     }
-    $args = array(
+    $args = [
         'callback_query_id' => $id,
-        'text' => $text,
-        'show_alert' => $alert
-    );
-    $r    = curlRequest('post', $API . 'answerCallbackQuery', $args);
+        'text'              => $text,
+        'show_alert'        => $alert,
+    ];
+    $r = curlRequest('post', $API.'answerCallbackQuery', $args);
     if ($cbmid) {
         if ($nmenu) {
-            $rm = array(
-                'inline_keyboard' => $nmenu
-            );
+            $rm = [
+                'inline_keyboard' => $nmenu,
+            ];
             $rm = json_encode($rm);
         }
-        $args = array(
-            'chat_id' => $chatID,
+        $args = [
+            'chat_id'    => $chatID,
             'message_id' => $cbmid,
-            'text' => $ntext,
-            'parse_mode' => $npm
-        );
+            'text'       => $ntext,
+            'parse_mode' => $npm,
+        ];
         if ($nmenu) {
             $args['reply_markup'] = $rm;
         }
-        $r = curlRequest('post', $API . 'editMessageText', $args);
+        $r = curlRequest('post', $API.'editMessageText', $args);
     }
 }
