@@ -19,4 +19,4 @@
           along with getUpdatesBot.  If not, see http://www.gnu.org/licenses.
 */
 
-$Token = '12345678:abcdefghij';  ;//Insert here you API Token
+$Token = '12345678:abcdefghij';  ; //Insert here you API Token

@@ -143,7 +143,7 @@ while (true) {
         require '_commands.php';
         if ($settings['log'] == 1 && $chatID > 0 && $msg) {
             $msg = strip_tags($msg);
-            echo $nome.' ['.$userID.'] -> ' . $msg . PHP_EOL;
+            echo $nome.' ['.$userID.'] -> '.$msg.PHP_EOL;
         }
     }
     $Offset = $Updates['result'][count($Updates['result']) - 1]['update_id'] + 1;
