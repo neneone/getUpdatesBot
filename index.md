@@ -22,7 +22,7 @@ Per utilizzare getUpdatesBot è necessario un server (possibilmente VPS) con acc
 Per installare getUpdatesBot bisogna prima di tutto usare questo comando:
 
 ```
-$ sudo apt-get -y install git zip screen curl python php7.1 php-mbstring php-xml php-gmp php-curl php-bcmath php-zip php-json && git clone https://github.com/Neneone/getUpdatesBot && rm README.md && rm CNAME && rm _config.yml
+$ sudo apt-get -y install git zip screen curl python php7.1 php-mbstring php-xml php-gmp php-curl php-bcmath php-zip php-json && git clone https://github.com/Neneone/getUpdatesBot && rm README.md && rm _config.yml
 ```
 
 A questo punto aprire `api_token.php` e inserire il token del bot.
