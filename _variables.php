@@ -19,6 +19,37 @@
           along with getUpdatesBot.  If not, see http://www.gnu.org/licenses.
 */
 
+error_reporting(0);
+
+unset($chatID);
+unset($userID);
+unset($msg);
+unset($username);
+unset($msgID);
+unset($nome);
+unset($cognome);
+unset($language_code);
+unset($messageID);
+unset($titolo);
+unset($usernamechat);
+unset($video_note);
+unset($voice);
+unset($photo);
+unset($photo_array);
+unset($document);
+unset($audio);
+unset($sticker);
+unset($cbid);
+unset($cbdata);
+unset($cbmid);
+unset($chatID);
+unset($userID);
+unset($nome);
+unset($cognome);
+unset($username);
+
+error_reporting(E_ERROR);
+
 $chatID = $Update['message']['chat']['id'];
 $userID = $Update['message']['from']['id'];
 $msg = $Update['message']['text'];
