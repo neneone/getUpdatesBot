@@ -103,7 +103,7 @@ if (file_exists('_commands.php') && file_exists('_functions.php')) {
 }
 $Offset = 0;
 echo $trad['update_fetching'].PHP_EOL;
-function curlRequest($type, $url, $args = null)
+function curlRequest($type, $url, $args = [])
 {
     $type = strtoupper($type);
     $ch = curl_init();
