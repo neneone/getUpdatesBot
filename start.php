@@ -114,7 +114,7 @@ function curlRequest($type, $url, $args = null)
     }
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     if ($type == 'POST') {
-        curl_setopt($ch, CURLPT_POST, true);
+        curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($args));
     }
     $exec = curl_exec($ch);
